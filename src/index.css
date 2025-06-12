@@ -11,3 +11,26 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* Swiper custom styles */
+.swiper-button-next,
+.swiper-button-prev {
+  color: #3C6E71 !important;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 2rem;
+  border-radius: 50%;
+  transform: scale(0.5);
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  background-color: white;
+}
+
+.swiper-pagination-bullet {
+  background-color: #3C6E71 !important;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #3C6E71 !important;
+}
