@@ -2,13 +2,15 @@ import React, { useState } from 'react';
 import { Box, Typography, Container, Modal, IconButton } from '@mui/material';
 import { motion } from 'framer-motion';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import type { Swiper as SwiperType } from 'swiper';
 import { Navigation, Pagination, Autoplay, EffectFade } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/effect-fade';
 import { Masonry } from '@mui/lab';
-import './Home.css'; 
+import './Home.css';
+import CloseIcon from '@mui/icons-material/Close';
 
 // Hero images
 const HERO_IMAGES = [
@@ -125,6 +127,7 @@ const PROJECTS = [
 const Home: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<typeof PROJECTS[0] | null>(null);
   const [hoveredImage, setHoveredImage] = useState<{ title: string; image: string } | null>(null);
+  const [selectedPublicationIndex, setSelectedPublicationIndex] = useState<number | null>(null);
 
   return (
     <Box
@@ -621,7 +624,6 @@ const Home: React.FC = () => {
                 },
                 '& .swiper-button-prev': {
                   left: '-100px',
-                  position: 'absolute',
                 },
                 '& .swiper-button-next': {
                   right: '-100px',
@@ -659,21 +661,6 @@ const Home: React.FC = () => {
                   top: '50%',
                   transform: 'translateY(-50%)',
                 },
-                '& .swiper-pagination.publications-pagination': {
-                  position: 'relative',
-                  bottom: 'auto',
-                  marginTop: '20px',
-                  '& .swiper-pagination-bullet': {
-                    width: '8px',
-                    height: '8px',
-                    margin: '0 4px',
-                    backgroundColor: 'rgba(0, 0, 0, 0.3)',
-                    opacity: 1,
-                  },
-                  '& .swiper-pagination-bullet-active': {
-                    backgroundColor: 'rgb(52, 207, 161)',
-                  },
-                },
               }}
             >
               <Box sx={{ width: '100%', height: '100%', position: 'relative' }}>
@@ -702,11 +689,17 @@ const Home: React.FC = () => {
                         component="img"
                         src={image}
                         alt={`Publication ${index + 1}`}
+                        onClick={() => setSelectedPublicationIndex(index)}
                         sx={{
                           width: '100%',
                           height: '100%',
                           objectFit: 'contain',
                           display: 'block',
+                          cursor: 'pointer',
+                          transition: 'transform 0.3s ease',
+                          '&:hover': {
+                            transform: 'scale(1.02)',
+                          },
                         }}
                       />
                     </SwiperSlide>
@@ -779,6 +772,128 @@ const Home: React.FC = () => {
               </Box>
             </>
           )}
+        </Box>
+      </Modal>
+
+      {/* Publications Full Screen Gallery Modal */}
+      <Modal
+        open={selectedPublicationIndex !== null}
+        onClose={() => setSelectedPublicationIndex(null)}
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 99999,
+          '& .MuiBackdrop-root': {
+            backgroundColor: 'rgba(0, 0, 0, 0.9)',
+          },
+          '& .MuiModal-backdrop': {
+            outline: 'none',
+          },
+        }}
+        slotProps={{
+          backdrop: {
+            sx: { outline: 'none' }
+          }
+        }}
+      >
+        <Box
+          sx={{
+            position: 'relative',
+            width: '90%',
+            height: '90%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            outline: 'none',
+          }}
+        >
+          <IconButton
+            onClick={() => setSelectedPublicationIndex(null)}
+            sx={{
+              position: 'absolute',
+              top: 16,
+              right: 16,
+              color: 'white',
+              bgcolor: 'rgba(255, 255, 255, 0.1)',
+              zIndex: 10,
+              padding: '8px',
+              '&:hover': {
+                bgcolor: 'rgba(255, 255, 255, 0.2)',
+              },
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
+          <Box
+            sx={{
+              width: '100%',
+              height: '100%',
+              position: 'relative',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              '& .swiper': {
+                width: '100%',
+                height: '100%',
+              },
+              '& .swiper-button-prev, & .swiper-button-next': {
+                color: 'white',
+                '&::after': {
+                  fontSize: '2rem',
+                },
+                '&:hover': {
+                  '&::before': {
+                    content: '""',
+                    position: 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    width: '4rem',
+                    height: '4rem',
+                    borderRadius: '50%',
+                    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                    zIndex: -1,
+                    transition: 'background-color 0.3s ease',
+                  },
+                  '&::after': {
+                    color: 'rgb(52, 207, 161)',
+                  },
+                },
+              },
+            }}
+          >
+            <Swiper
+              modules={[Navigation]}
+              spaceBetween={0}
+              slidesPerView={1}
+              navigation={true}
+              initialSlide={selectedPublicationIndex || 0}
+              onSlideChange={(swiper: SwiperType) => setSelectedPublicationIndex(swiper.activeIndex)}
+            >
+              {PUBLICATION_IMAGES.map((image, index) => (
+                <SwiperSlide key={index}>
+                  <Box
+                    component="img"
+                    src={image}
+                    alt={`Publication ${index + 1}`}
+                    sx={{
+                      maxWidth: '90%',
+                      maxHeight: '90%',
+                      width: 'auto',
+                      height: 'auto',
+                      objectFit: 'contain',
+                      display: 'block',
+                      position: 'absolute',
+                      top: '50%',
+                      left: '50%',
+                      transform: 'translate(-50%, -50%)',
+                    }}
+                  />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </Box>
         </Box>
       </Modal>
 
