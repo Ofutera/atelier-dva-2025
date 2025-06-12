@@ -12,7 +12,7 @@ const MENU_ITEMS: MenuItem[] = [
   { id: 'home', label: 'Home', href: '#home' },
   { id: 'about', label: 'Studio DVA', href: '#about' },
   { id: 'projects', label: 'Projekty', href: '#projects' },
-  { id: 'publications', label: 'Publikace', href: '#publikace' },
+  { id: 'publikace', label: 'Publikace', href: '#publikace' },
   { id: 'contact', label: 'Kontakt', href: '#contact' }
 ];
 
