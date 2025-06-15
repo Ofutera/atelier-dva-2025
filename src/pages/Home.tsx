@@ -22,13 +22,13 @@ const HERO_IMAGES = [
 
 // Publication images
 const PUBLICATION_IMAGES = [
-  '/images/Publications/zahrada01.jpg',
-  '/images/Publications/zahrada02.jpg',
-  '/images/Publications/zahrada03.jpg',
-  '/images/Publications/zahrada2_01.jpg',
-  '/images/Publications/zahrada2_02.jpg',
-  '/images/Publications/zena_dekor01.jpg',
-  '/images/Publications/zena_dekor02.jpg'
+  '/images/publications/zahrada01.jpg',
+  '/images/publications/zahrada02.jpg',
+  '/images/publications/zahrada03.jpg',
+  '/images/publications/zahrada2_01.jpg',
+  '/images/publications/zahrada2_02.jpg',
+  '/images/publications/zena_dekor01.jpg',
+  '/images/publications/zena_dekor02.jpg'
 ];
 
 const PROJECTS = [
