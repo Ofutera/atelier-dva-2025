@@ -13,19 +13,19 @@ import './Home.css';
 import CloseIcon from '@mui/icons-material/Close';
 
 // Import hero images
-import hero1 from '../../public/images/hero/SOA_Dum_Sulicka_BoysPlayNice_01.jpg';
-import hero2 from '../../public/images/hero/SOA_Dum_Sulicka_BoysPlayNice_05.jpg';
-import hero3 from '../../public/images/hero/SOA_Dum_Sulicka_BoysPlayNice_06.jpg';
-import hero4 from '../../public/images/hero/SOA_Dum_Sulicka_BoysPlayNice_26.jpg';
+import hero1 from '../assets/images/hero/SOA_Dum_Sulicka_BoysPlayNice_01.jpg';
+import hero2 from '../assets/images/hero/SOA_Dum_Sulicka_BoysPlayNice_05.jpg';
+import hero3 from '../assets/images/hero/SOA_Dum_Sulicka_BoysPlayNice_06.jpg';
+import hero4 from '../assets/images/hero/SOA_Dum_Sulicka_BoysPlayNice_26.jpg';
 
 // Import publication images
-import pub1 from '../../public/images/publications/zahrada01.jpg';
-import pub2 from '../../public/images/publications/zahrada02.jpg';
-import pub3 from '../../public/images/publications/zahrada03.jpg';
-import pub4 from '../../public/images/publications/zahrada2_01.jpg';
-import pub5 from '../../public/images/publications/zahrada2_02.jpg';
-import pub6 from '../../public/images/publications/zena_dekor01.jpg';
-import pub7 from '../../public/images/publications/zena_dekor02.jpg';
+import pub1 from '../assets/images/publications/zahrada01.jpg';
+import pub2 from '../assets/images/publications/zahrada02.jpg';
+import pub3 from '../assets/images/publications/zahrada03.jpg';
+import pub4 from '../assets/images/publications/zahrada2_01.jpg';
+import pub5 from '../assets/images/publications/zahrada2_02.jpg';
+import pub6 from '../assets/images/publications/zena_dekor01.jpg';
+import pub7 from '../assets/images/publications/zena_dekor02.jpg';
 
 // Hero images
 const HERO_IMAGES = [hero1, hero2, hero3, hero4];
