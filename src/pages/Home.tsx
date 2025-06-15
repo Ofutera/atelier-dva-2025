@@ -14,10 +14,10 @@ import CloseIcon from '@mui/icons-material/Close';
 
 // Hero images
 const HERO_IMAGES = [
-  '/images/hero/SOA_Dum_Sulicka_BoysPlayNice_01.jpg',
-  '/images/hero/SOA_Dum_Sulicka_BoysPlayNice_05.jpg',
-  '/images/hero/SOA_Dum_Sulicka_BoysPlayNice_06.jpg',
-  '/images/hero/SOA_Dum_Sulicka_BoysPlayNice_26.jpg'
+  `${process.env.PUBLIC_URL}/images/hero/SOA_Dum_Sulicka_BoysPlayNice_01.jpg`,
+  `${process.env.PUBLIC_URL}/images/hero/SOA_Dum_Sulicka_BoysPlayNice_05.jpg`,
+  `${process.env.PUBLIC_URL}/images/hero/SOA_Dum_Sulicka_BoysPlayNice_06.jpg`,
+  `${process.env.PUBLIC_URL}/images/hero/SOA_Dum_Sulicka_BoysPlayNice_26.jpg`
 ];
 
 // Add debug logging
@@ -25,13 +25,13 @@ console.log('Hero images:', HERO_IMAGES);
 
 // Publication images
 const PUBLICATION_IMAGES = [
-  '/images/publications/zahrada01.jpg',
-  '/images/publications/zahrada02.jpg',
-  '/images/publications/zahrada03.jpg',
-  '/images/publications/zahrada2_01.jpg',
-  '/images/publications/zahrada2_02.jpg',
-  '/images/publications/zena_dekor01.jpg',
-  '/images/publications/zena_dekor02.jpg'
+  `${process.env.PUBLIC_URL}/images/publications/zahrada01.jpg`,
+  `${process.env.PUBLIC_URL}/images/publications/zahrada02.jpg`,
+  `${process.env.PUBLIC_URL}/images/publications/zahrada03.jpg`,
+  `${process.env.PUBLIC_URL}/images/publications/zahrada2_01.jpg`,
+  `${process.env.PUBLIC_URL}/images/publications/zahrada2_02.jpg`,
+  `${process.env.PUBLIC_URL}/images/publications/zena_dekor01.jpg`,
+  `${process.env.PUBLIC_URL}/images/publications/zena_dekor02.jpg`
 ];
 
 // Add debug logging
