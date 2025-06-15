@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Typography, Container, Modal, IconButton } from '@mui/material';
 import { motion } from 'framer-motion';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -140,6 +140,22 @@ const Home: React.FC = () => {
   const [hoveredImage, setHoveredImage] = useState<{ title: string; image: string } | null>(null);
   const [selectedPublicationIndex, setSelectedPublicationIndex] = useState<number | null>(null);
   const [selectedProjectImageIndex, setSelectedProjectImageIndex] = useState<number | null>(null);
+  const [loadedImages, setLoadedImages] = useState<{ [key: string]: boolean }>({});
+
+  useEffect(() => {
+    PROJECTS.forEach(project => {
+      project.images.forEach(image => {
+        const img = new Image();
+        img.src = image;
+        img.onload = () => {
+          setLoadedImages(prev => ({
+            ...prev,
+            [image]: true
+          }));
+        };
+      });
+    });
+  }, []);
 
   return (
     <Box
@@ -295,19 +311,22 @@ const Home: React.FC = () => {
       <Box
         id="about"
         sx={{
-          height: '100vh',
+          minHeight: '100vh',
           width: '100%',
           bgcolor: 'background.default',
-          py: 15,
+          py: { xs: 8, md: 10 },
           scrollSnapAlign: 'start',
           display: 'flex',
           alignItems: 'center',
+          overflow: 'hidden',
         }}
       >
         <Container
           sx={{
-            maxHeight: '100%',
-            overflow: 'auto',
+            height: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
             '&::-webkit-scrollbar': {
               display: 'none'
             },
@@ -324,7 +343,7 @@ const Home: React.FC = () => {
             <Typography
               variant="h2"
               sx={{
-                mb: 8,
+                mb: { xs: 4, md: 6 },
                 color: 'text.primary',
                 textAlign: 'center',
                 fontSize: '25px',
@@ -344,14 +363,13 @@ const Home: React.FC = () => {
               sx={{
                 maxWidth: '800px',
                 mx: 'auto',
-                mb: 6,
+                mb: { xs: 4, md: 6 },
               }}
             >
-              
               <Typography
                 sx={{
                   color: 'text.primary',
-                  mb: 4,
+                  mb: { xs: 3, md: 4 },
                   fontSize: '1.1rem',
                   lineHeight: 1.6,
                   fontFamily: '"IBM Plex Sans", sans-serif',
@@ -362,7 +380,7 @@ const Home: React.FC = () => {
               <Typography
                 variant="h5"
                 sx={{
-                  mb: 0,
+                  mb: { xs: 2, md: 3 },
                   color: 'text.primary',
                   fontFamily: '"Montserrat", sans-serif',
                   fontWeight: 500,
@@ -375,14 +393,14 @@ const Home: React.FC = () => {
               <Box
                 sx={{
                   display: 'flex',
-                  gap: 4,
+                  gap: { xs: 3, md: 4 },
                   alignItems: 'flex-start',
+                  flexDirection: { xs: 'column', md: 'row' },
                 }}
               >
                 <Typography
                   sx={{
                     color: 'text.primary',
-                    mb: 4,
                     fontSize: '1.1rem',
                     lineHeight: 1.6,
                     fontFamily: '"IBM Plex Sans", sans-serif',
@@ -397,7 +415,7 @@ const Home: React.FC = () => {
                   src={michal}
                   alt="Michal Nováček"
                   sx={{
-                    width: '250px',
+                    width: { xs: '100%', md: '250px' },
                     objectFit: 'cover',
                   }}
                 />
@@ -456,30 +474,20 @@ const Home: React.FC = () => {
           <Masonry columns={{ xs: 1, sm: 2, md: 3, lg: 4 }} spacing={0}>
             {PROJECTS.map((project) =>
               project.images.map((image, imageIndex) => {
-                // Create a more varied pattern using both project ID and image index
-                // Multiply by prime numbers to create more variation
                 const seed = (project.id * 17 + imageIndex * 23) % 19;
-                
-                // Force normal treatment for some images towards the end
                 const isTowardsEnd = project.id >= PROJECTS.length - 2;
                 const hasNoTreatment = isTowardsEnd ? 
-                  (seed % 3 === 0) : // More frequent normal images for last two projects
+                  (seed % 3 === 0) : 
                   (seed === 1 || seed === 4 || seed === 10 || seed === 16);
-                
-                // Using the seed to determine treatment for other images
-                // Reduced frequency of teal overlays by only using seed === 7
                 const hasTealOverlay = !hasNoTreatment && (seed === 7);
-                
-                // Additional check to prevent adjacent teal overlays
                 const prevSeed = (project.id * 17 + (imageIndex - 1) * 23) % 19;
                 const nextSeed = (project.id * 17 + (imageIndex + 1) * 23) % 19;
                 const prevHasTeal = prevSeed === 7;
                 const nextHasTeal = nextSeed === 7;
                 const shouldHaveTeal = hasTealOverlay && !prevHasTeal && !nextHasTeal;
-                
-                // Use seed to create varying heights
-                const heightMultiplier = 0.8 + ((seed % 5) * 0.1); // Creates values between 0.8 and 1.2
-                
+                const heightMultiplier = 0.8 + ((seed % 5) * 0.1);
+                const isLoaded = loadedImages[image];
+
                 return (
                   <Box
                     key={`${project.id}-${imageIndex}`}
@@ -513,16 +521,45 @@ const Home: React.FC = () => {
                     onMouseLeave={() => setHoveredImage(null)}
                     onClick={() => setSelectedProject(project)}
                   >
+                    {!isLoaded && (
+                      <Box
+                        sx={{
+                          width: '100%',
+                          height: `${250 * heightMultiplier}px`,
+                          bgcolor: 'rgba(0, 0, 0, 0.1)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                        }}
+                      >
+                        <Box
+                          sx={{
+                            width: '40px',
+                            height: '40px',
+                            border: '3px solid #f3f3f3',
+                            borderTop: '3px solid rgb(52, 207, 161)',
+                            borderRadius: '50%',
+                            animation: 'spin 1s linear infinite',
+                            '@keyframes spin': {
+                              '0%': { transform: 'rotate(0deg)' },
+                              '100%': { transform: 'rotate(360deg)' },
+                            },
+                          }}
+                        />
+                      </Box>
+                    )}
                     <Box
                       component="img"
                       src={image}
                       alt={`${project.title} - Image ${imageIndex + 1}`}
+                      loading="lazy"
                       sx={{
                         display: 'block',
                         borderRadius: 0,
                         objectFit: 'cover',
                         filter: hasNoTreatment ? 'none' : (shouldHaveTeal ? 'none' : 'grayscale(0.7) brightness(0.7)'),
                         transition: 'all 0.5s ease',
+                        opacity: isLoaded ? 1 : 0,
                         '&:hover': {
                           filter: 'none',
                         }
