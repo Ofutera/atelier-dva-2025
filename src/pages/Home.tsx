@@ -27,6 +27,9 @@ import pub5 from '../assets/images/publications/zahrada2_02.jpg';
 import pub6 from '../assets/images/publications/zena_dekor01.jpg';
 import pub7 from '../assets/images/publications/zena_dekor02.jpg';
 
+// Import michal.jpg
+import michal from '../assets/images/michal.jpg';
+
 // Hero images
 const HERO_IMAGES = [hero1, hero2, hero3, hero4];
 
@@ -391,7 +394,7 @@ const Home: React.FC = () => {
                 </Typography>
                 <Box
                   component="img"
-                  src="/images/michal.jpg"
+                  src={michal}
                   alt="Michal Nováček"
                   sx={{
                     width: '250px',
