@@ -1052,6 +1052,7 @@ const Home: React.FC = () => {
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2559.0448543384584!2d14.425198776772714!3d50.09911897942825!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x470b94b52139e2d1%3A0x7c3886c8a2c9c194!2zS29zdGVsbsOtIDExMDMvMTQsIDE3MCAwMCBQcmFoYSA3LUhvbGXFoW92aWNl!5e0!3m2!1sen!2scz!4v1710373391241!5m2!1sen!2scz"
             width="100%"
             height="100%"
+            title="Atelier DVA Location Map"
             style={{
               border: 0,
               filter: 'grayscale(1) contrast(1.1)',

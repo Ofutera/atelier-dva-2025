@@ -104,7 +104,7 @@ const Header: React.FC = () => {
       scrollContainer.removeEventListener('scroll', throttledScroll);
       window.removeEventListener('hashchange', handleHashChange);
     };
-  }, []); // Empty dependency array since we don't need to recreate the listener
+  }, [activeSection]); // Add activeSection to the dependency array
 
   return (
     <AppBar
