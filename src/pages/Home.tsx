@@ -20,6 +20,9 @@ const HERO_IMAGES = [
   '/images/hero/SOA_Dum_Sulicka_BoysPlayNice_26.jpg'
 ];
 
+// Add debug logging
+console.log('Hero images:', HERO_IMAGES);
+
 // Publication images
 const PUBLICATION_IMAGES = [
   '/images/publications/zahrada01.jpg',
@@ -30,6 +33,9 @@ const PUBLICATION_IMAGES = [
   '/images/publications/zena_dekor01.jpg',
   '/images/publications/zena_dekor02.jpg'
 ];
+
+// Add debug logging
+console.log('Publication images:', PUBLICATION_IMAGES);
 
 const PROJECTS = [
   {
@@ -260,6 +266,10 @@ const Home: React.FC = () => {
                     component="img"
                     src={image}
                     alt={`Landscape Design ${index + 1}`}
+                    onError={(e) => {
+                      console.error(`Failed to load hero image: ${image}`);
+                      e.currentTarget.src = 'https://via.placeholder.com/800x600?text=Image+Not+Found';
+                    }}
                     sx={{
                       width: '100%',
                       height: '100%',
@@ -691,6 +701,10 @@ const Home: React.FC = () => {
                         src={image}
                         alt={`Publication ${index + 1}`}
                         onClick={() => setSelectedPublicationIndex(index)}
+                        onError={(e) => {
+                          console.error(`Failed to load publication image: ${image}`);
+                          e.currentTarget.src = 'https://via.placeholder.com/800x600?text=Image+Not+Found';
+                        }}
                         sx={{
                           width: '100%',
                           height: '100%',
